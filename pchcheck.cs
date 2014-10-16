@@ -11,7 +11,6 @@ namespace pchcheck
 	{
 		const string ERROR_NO_PATH = "No PCH file specified.";
 		const string ERROR_WRONG_EXTENSION = "Not a PCH file.";
-		const string ERROR_FILE_DOES_NOT_EXIST = "PCH file does not exist.";
 		const string USAGE = "Usage: pchcheck <path/to/file.pch>";
 		const string PCH_EXTENSION = ".pch";
 		const string PCH_HEADER = "VCPCH0";
