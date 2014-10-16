@@ -9,8 +9,8 @@ namespace pchcheck
 {
 	class Program
 	{
-		const string ERROR_NO_PATH = "No PCH file specified.";
-		const string ERROR_WRONG_EXTENSION = "Not a PCH file.";
+		const string ERROR_NO_PATH = "Error: no PCH file specified.";
+		const string ERROR_WRONG_EXTENSION = "Error: not a PCH file.";
 		const string USAGE = "Usage: pchcheck <path/to/file.pch>";
 		const string PCH_EXTENSION = ".pch";
 		const string PCH_HEADER = "VCPCH0";
@@ -21,7 +21,7 @@ namespace pchcheck
 			{
 				Console.WriteLine(ERROR_NO_PATH);
 				Console.WriteLine(USAGE);
-				Environment.Exit( 1 );
+				Environment.Exit(1);
 			}
 	
 			string pchPath = args[0];
@@ -35,7 +35,11 @@ namespace pchcheck
 			// Check first bytes
 			// C.f. http://www.dotnetperls.com/binaryreader
 			bool doRemove = false;
-			if (File.Exists(pchPath))
+			if (!File.Exists(pchPath))
+			{
+				Console.Write(pchPath + " does not exist.");
+			}
+			else
 			{
 				using (BinaryReader br = new BinaryReader(File.Open(pchPath, FileMode.Open)))
 				{
