@@ -33,27 +33,24 @@ namespace pchcheck
 				Environment.Exit(2);
 			}
 
-			if (!File.Exists(pchPath)) {
-				Console.WriteLine(ERROR_FILE_DOES_NOT_EXIST);
-				Console.WriteLine(USAGE);
-				Environment.Exit(3);		
-			}
-
 			// Check first bytes
 			// C.f. http://www.dotnetperls.com/binaryreader
 			bool doRemove = false;
-			using (BinaryReader br = new BinaryReader(File.Open(pchPath, FileMode.Open)))
+			if (File.Exists(pchPath))
 			{
-				char[] wantedChars = PCH_HEADER.ToCharArray();
-				char[] actualChars = br.ReadChars( PCH_HEADER.Length );
-				if (wantedChars.SequenceEqual(actualChars))
+				using (BinaryReader br = new BinaryReader(File.Open(pchPath, FileMode.Open)))
 				{
-					Console.Write(pchPath + " is OK.");
-				}
-				else
-				{
-					Console.Write(pchPath + " is corrupted: removing.");
-					doRemove = true;
+					char[] wantedChars = PCH_HEADER.ToCharArray();
+					char[] actualChars = br.ReadChars(PCH_HEADER.Length);
+					if (wantedChars.SequenceEqual(actualChars))
+					{
+						Console.Write(pchPath + " is OK.");
+					}
+					else
+					{
+						Console.Write(pchPath + " is corrupted: removing.");
+						doRemove = true;
+					}
 				}
 			}
 
