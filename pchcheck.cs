@@ -17,7 +17,7 @@ namespace pchcheck
 
 		static void Main(string[] args)
 		{
-			if (args.Length != 1)
+			if (args.Length == 0)
 			{
 				Console.WriteLine(ERROR_NO_PATH);
 				Console.WriteLine(USAGE);
